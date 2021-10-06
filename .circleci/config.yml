@@ -209,7 +209,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["a1:04:bf:e1:03:68:9e:10:1d:d0:de:a5:a2:33:e2:57"]
+          fingerprints: ["FINGER-PRINT-HERE"]
       - attach_workspace:
           at: ~/project
       - run:
@@ -279,7 +279,7 @@ jobs:
             echo "${API_URL}" >> .env
             npm i
             npm run build
-            aws s3 sync ./dist s3://"udapeople-${CIRCLE_WORKFLOW_ID}"
+            aws s3 sync ./dist s3://"S3_BUCKET_NAME-${CIRCLE_WORKFLOW_ID}"
 
       - rev-migrations
       - destroy-env
@@ -291,7 +291,7 @@ jobs:
       - attach_workspace:
           at: ~/project
       - add_ssh_keys:
-          fingerprints: ["a1:04:bf:e1:03:68:9e:10:1d:d0:de:a5:a2:33:e2:57"]
+          fingerprints: ["FINGER_PRINT_HERE"]
       - run:
           name: Install dependencies
           command: |
