@@ -1,0 +1,26 @@
+---
+
+- name: Copy backend files
+  become: true
+  copy:
+    src: /root/project/backend.tar.gz
+    dest: /home/ubuntu/
+      
+- name: "un tar files"
+  become: true
+  ansible.builtin.unarchive:
+    src: /home/ubuntu/backend.tar.gz
+    dest: /home/ubuntu
+    remote_src: yes
+
+- name: "Check and install npm"
+  become: true
+  command: npm install
+  args:
+      chdir: /home/ubuntu/backend
+
+- name: "PM2 Start"
+  become: true
+  shell: |
+    cd /home/ubuntu/backend/
+    pm2 start npm --name backend -- start
